@@ -15,7 +15,18 @@ def recipe_batches(recipe, ingredients):
     if i not in ingredients_keys:
       print(f"You're missing the ingredient: {i}")
       return 0
-
+  batch = 0 # Init a var to hold max batches possible, and update in a loop based on modulo operation
+  for item in recipe_keys:
+    print(f"{item}: {recipe[item]} required, {ingredients[item]} on hand, you have enough for {round(ingredients[item]/recipe[item])} batches with this ingredient")
+    if recipe[item] > ingredients[item]: # if at any point we have less of an ingredient than what the recipe requires, break out of the loop and return 0
+      print(f"Need more {item}")
+      return 0
+    if batch == 0: # if this is the first iteration, set batch to the rounded product of the first ingredient item and recipe item
+      batch = round(ingredients[item]/recipe[item])
+    if round(ingredients[item]/recipe[item]) < batch: # if the rounded product of the current ingredient item and recipe item is less than the batch count we have, update batch to this lower number
+      batch = round(ingredients[item]/recipe[item])
+    print(f"Batch is {batch}")
+  return batch
   pass 
 
 

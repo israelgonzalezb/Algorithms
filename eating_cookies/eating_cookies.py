@@ -6,10 +6,12 @@ import timeit # library methods for timing how quickly a function is processed
 # The cache parameter is here for if you want to implement
 # a solution that is more efficient than the naive 
 # recursive solution
-def eating_cookies(n, cache=None):
-  # Thinking of dividing by each possible count... maybe using mod
 
+def eating_cookies(n, cache={}):
+  # Thinking of dividing by each possible count... maybe using mod
   possible_ways = 0
+  if n in cache:
+    return cache[n]
   if n == 0:
     print("No more cookies!")
     return 1
@@ -26,9 +28,11 @@ def eating_cookies(n, cache=None):
   # If n > 0, then we'll always have at least one way to eat the cookies
   # 2. He can eat 1 cookie, then 2 cookies 
   print(possible_ways)
+  cache[n] = possible_ways
+  print(f"cache: {cache}")
   return possible_ways
 
-print(f"Time: {timeit.timeit('eating_cookies(3)', globals=globals(), number=1)}")
+# print(f"Time: {timeit.timeit('eating_cookies(3)', globals=globals(), number=1)}")
 
 if __name__ == "__main__":
   if len(sys.argv) > 1:
